@@ -51,6 +51,8 @@ firstOperationsArray.forEach((el) => {
     calculateObj = calculate(calculateObj, el);
     if (el === 'AC') {
       screen.setAttribute('value', 0);
+    } else if (el === '+/-') {
+      screen.setAttribute('value', calculateObj.next);
     }
   });
   firstOperationsContainer.appendChild(li);
