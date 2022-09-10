@@ -1,5 +1,9 @@
 import calculate from './calculatorLogic/calculate.js';
 
+const translateSomeKeys = {
+  Backspace: 'AC', '*': 'x', Enter: '=', '/': '÷',
+};
+
 let calculateObj = {
   total: null,
   next: null,
@@ -19,7 +23,7 @@ numbersArray.push('.');
 // create operation-1 buttons list
 const firstOperationsArray = ['AC', '+/-', '%'];
 // create operation-2 buttons list
-const secondOperationsArray = ['/', 'x', '-', '+', '='];
+const secondOperationsArray = ['/', '*', '-', '+', '='];
 // generate elements for each button
 numbersArray.forEach((el) => {
   const li = document.createElement('li');
@@ -45,6 +49,9 @@ firstOperationsArray.forEach((el) => {
 
   button.addEventListener('click', () => {
     calculateObj = calculate(calculateObj, el);
+    if (el === 'AC') {
+      screen.setAttribute('value', 0);
+    }
   });
   firstOperationsContainer.appendChild(li);
 });
@@ -55,11 +62,38 @@ secondOperationsArray.forEach((el) => {
   button.style.backgroundColor = '#FF8F1F';
   li.appendChild(button);
   button.addEventListener('click', () => {
-    calculateObj = calculate(calculateObj, el);
     if (el === '=') {
+      calculateObj = calculate(calculateObj, el);
       screen.setAttribute('value', calculateObj.total);
+    } else if (el === '/' || el === '*') {
+      calculateObj = calculate(calculateObj, translateSomeKeys[el]);
+    } else {
+      calculateObj = calculate(calculateObj, el);
     }
   });
 
   secondOperationsContainer.appendChild(li);
+});
+window.addEventListener('keyup', (event) => {
+  const el = event.key;
+  if (numbersArray.includes(event.key)) {
+    screen.setAttribute('value', calculateObj.next ? calculateObj.next + el : el);
+    calculateObj = calculate(calculateObj, el);
+  } else if (secondOperationsArray.includes(event.key) || el === '*') {
+    if (el === '/' || el === '*') {
+      calculateObj = calculate(calculateObj, translateSomeKeys[el]);
+    } else {
+      calculateObj = calculate(calculateObj, el);
+    }
+    if (el === '=') {
+      screen.setAttribute('value', calculateObj.total);
+    }
+  } else if (el === 'Backspace') {
+    calculateObj = calculate(calculateObj, translateSomeKeys[el]);
+    screen.setAttribute('value', 0);
+  } else if (el === 'Enter') {
+    calculateObj = calculate(calculateObj, translateSomeKeys[el]);
+
+    screen.setAttribute('value', calculateObj.total);
+  }
 });
