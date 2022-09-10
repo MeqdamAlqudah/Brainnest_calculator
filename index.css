@@ -1,0 +1,90 @@
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background-color: black;
+}
+
+.container {
+  display: grid;
+  border: 10px solid rgba(47, 47, 47, 1);
+}
+
+.screen {
+  padding-bottom: 9px;
+  z-index: 1;
+  background: black;
+  grid-row: 1;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  height: 42px;
+  width: 15.5rem;
+}
+
+.screen-vlaue {
+  background-color: #b2b9b7;
+  text-shadow: 1.3px 1.3px #383838;
+  width: 100%;
+  text-align: right;
+  padding-right: 5px;
+  height: 100%;
+}
+
+.operations-up {
+  display: flex;
+  grid-row: 2;
+  grid-column: 1;
+  margin-bottom: -30px;
+  z-index: 1;
+  padding-left: 1px;
+}
+
+button {
+  width: 62px;
+  height: 62px;
+  border-radius: 10px;
+  border: none;
+}
+
+.operations-up button {
+  margin-top: 2px;
+}
+
+.operations-down {
+  display: flex;
+  flex-direction: column;
+  grid-row-start: 2;
+  grid-row-end: 4;
+  grid-column: 2;
+  margin-top: -7px;
+  padding-top: 9px;
+  padding-right: 2px;
+}
+
+.numbers {
+  display: flex;
+  grid-row: 3;
+  flex-wrap: wrap;
+  grid-column: 1;
+  width: 12rem;
+  align-content: center;
+  margin-top: 30px;
+}
+
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+li {
+  padding: 0.9px;
+}
+
+.numbers li {
+  height: 62px;
+}
+
+button:hover {
+  filter: brightness(1.5);
+}
